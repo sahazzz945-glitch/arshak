@@ -6,7 +6,7 @@
     <title>AMUPS Valluvambram | Modern Primary Education</title>
     
     <style>
-        /* --- FINAL DARK THEME WITH NEW ANIMATIONS AND SIZING --- */
+        /* --- CUSTOM THEME: DARK THEME --- */
         :root {
             --primary-color: #00bcd4; /* Teal/Aqua Accent */
             --background-dark: #121212; /* True Black Background */
@@ -92,7 +92,7 @@
             transform: scale(1.02);
         }
         
-        /* --- LIGHTBOX CSS (Animated Pop-up) --- */
+        /* --- LIGHTBOX CSS --- */
         #lightbox {
             display: none; 
             position: fixed;
@@ -106,7 +106,6 @@
             background-color: rgba(0, 0, 0, 0.9);
             transition: opacity 0.3s ease-in-out;
         }
-
         #lightbox-img {
             margin: auto;
             display: block;
@@ -117,7 +116,6 @@
             border: 5px solid white;
             border-radius: 5px;
         }
-
         .close-button {
             position: absolute;
             top: 15px;
@@ -128,7 +126,6 @@
             transition: 0.3s;
             cursor: pointer;
         }
-
         @keyframes zoom {
             from {transform:scale(0)} 
             to {transform:scale(1)}
@@ -165,7 +162,7 @@
         .info-card { background-color: var(--input-bg); padding: 15px; border-radius: 8px; margin-top: 10px; border-left: 5px solid var(--primary-color); font-size: 0.95em; }
         .info-card strong { color: var(--primary-color); }
         
-        /* --- Staff Section Styling (New) --- */
+        /* --- Staff Section Styling --- */
         .staff-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -202,7 +199,38 @@
             font-size: 0.9em;
             margin: 0;
         }
-
+        
+        /* --- STAFF TOGGLE BUTTON --- */
+        .toggle-staff-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background-color: var(--nav-green-new);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+        .toggle-staff-btn:hover {
+            background-color: #164a31; /* Slightly darker hover */
+        }
+        /* Style for initially hidden staff members */
+        #hiddenStaff {
+            /* Smooth transition when the display property changes */
+            transition: max-height 0.5s ease-out, opacity 0.3s; 
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+        #hiddenStaff.expanded {
+            /* A large value to allow the content to fully show when expanded */
+            max-height: 2000px; 
+            opacity: 1;
+        }
         /* --- Footer Styles --- */
         .footer { background-color: #000000; color: var(--border-color); text-align: center; padding: 20px; margin-top: 40px; font-size: 0.9em; border-top: 1px solid var(--border-color); }
         
@@ -299,6 +327,7 @@
         <div class="section" id="staff">
             <h2>Our Dedicated Staff</h2>
             <p>Our experienced teaching faculty is committed to providing a stimulating and supportive learning environment for every child.</p>
+            
             <div class="staff-grid">
                 <div class="staff-card">
                     <img src="./staff_placeholder.png" alt="Photo of Basil Sir">
@@ -315,6 +344,9 @@
                     <h3>R.K. Sir</h3>
                     <p>Physical Education Instructor</p>
                 </div>
+            </div>
+            
+            <div id="hiddenStaff" class="staff-grid">
                 <div class="staff-card">
                     <img src="./staff_placeholder.png" alt="Photo of Salm Sir">
                     <h3>Salm Sir</h3>
@@ -325,8 +357,28 @@
                     <h3>Tanzila Teacher</h3>
                     <p>Language Teacher</p>
                 </div>
-            </div>
+                <div class="staff-card">
+                    <img src="./staff_placeholder.png" alt="Photo of New Teacher 1">
+                    <h3>Teacher A</h3>
+                    <p>Mathematics</p>
+                </div>
+                <div class="staff-card">
+                    <img src="./staff_placeholder.png" alt="Photo of New Teacher 2">
+                    <h3>Teacher B</h3>
+                    <p>Science</p>
+                </div>
+                <div class="staff-card">
+                    <img src="./staff_placeholder.png" alt="Photo of New Teacher 3">
+                    <h3>Teacher C</h3>
+                    <p>IT Specialist</p>
+                </div>
+                </div>
+            
+            <button class="toggle-staff-btn" onclick="toggleStaff()">
+                View All Staff (Total: 8)
+            </button>
         </div>
+        
         <div class="section" id="admissions">
             <h2>Student Admissions Enquiry</h2>
             <p style="margin-bottom: 20px; color: var(--admissions-highlight); font-weight: bold;">
@@ -406,6 +458,7 @@
     </div>
 
     <script>
+        // Lightbox functions (already existed)
         function openLightbox(imageSrc) {
             var lightbox = document.getElementById('lightbox');
             var lightboxImg = document.getElementById('lightbox-img');
@@ -416,6 +469,22 @@
         function closeLightbox() {
             var lightbox = document.getElementById('lightbox');
             lightbox.style.display = 'none';
+        }
+
+        // NEW STAFF TOGGLE FUNCTION
+        function toggleStaff() {
+            var hiddenSection = document.getElementById('hiddenStaff');
+            var button = document.querySelector('.toggle-staff-btn');
+
+            if (hiddenSection.classList.contains('expanded')) {
+                // Currently expanded, so hide it
+                hiddenSection.classList.remove('expanded');
+                button.textContent = 'View All Staff (Total: 8)';
+            } else {
+                // Currently hidden, so show it
+                hiddenSection.classList.add('expanded');
+                button.textContent = 'Hide Additional Staff';
+            }
         }
     </script>
 
